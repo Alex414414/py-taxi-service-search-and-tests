@@ -52,30 +52,14 @@ def validate_license_number(
     return license_number
 
 
-class DriverSearchForm(forms.Form):
-    username = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by username"}),
-    )
-
-
-class ModelSearchForm(forms.Form):
-    model = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by model"}),
-    )
-
-
-class ManufacturersNameSearchForm(forms.Form):
-    name = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Search by manufacturers name"}
-        ),
-    )
+class SearchForm(forms.Form):
+    def __init__(self, field_name, placeholder, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields[field_name] = forms.CharField(
+            max_length=255,
+            required=False,
+            label="",
+            widget=forms.TextInput(
+                attrs={"placeholder": placeholder}
+            ),
+        )
